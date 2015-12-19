@@ -1,0 +1,86 @@
+﻿@model EasyUI.Liuy.Domain.Models.ReplyMessage
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>ReplyMessage</legend>
+
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.AcceptanceDep)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.AcceptanceDep)
+            @Html.ValidationMessageFor(model => model.AcceptanceDep)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SI)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.SI)
+            @Html.ValidationMessageFor(model => model.SI)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.WorkOrderId, "WorkOrder")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("WorkOrderId", String.Empty)
+            @Html.ValidationMessageFor(model => model.WorkOrderId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.AcceptancePer)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.AcceptancePer)
+            @Html.ValidationMessageFor(model => model.AcceptancePer)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ProcessingMode)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ProcessingMode)
+            @Html.ValidationMessageFor(model => model.ProcessingMode)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CreateTime)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.CreateTime)
+            @Html.ValidationMessageFor(model => model.CreateTime)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ProcessingTime)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ProcessingTime)
+            @Html.ValidationMessageFor(model => model.ProcessingTime)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

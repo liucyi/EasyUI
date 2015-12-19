@@ -1,0 +1,64 @@
+﻿@model EasyUI.Liuy.Domain.Models.ReplyMessage
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>ReplyMessage</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.AcceptanceDep)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.AcceptanceDep)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.SI)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.SI)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.WorkOrder.Type)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.WorkOrder.Type)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.AcceptancePer)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.AcceptancePer)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ProcessingMode)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ProcessingMode)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.CreateTime)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CreateTime)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ProcessingTime)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ProcessingTime)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,62 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+<script>
+    $(function () {
+        $("#dg").datagrid({
+            url: "../SysDepartment/DataGrid",
+            //title: "数据",
+            iconCls: "icon-add",
+            singleSelect: false,
+            fitColumns: false,
+            idField: "id",
+            loadMsg: "正在加载数据",
+            pagination: true,
+            rownumbers: true,
+            pageSiz: 10,
+            pageList: [10, 20, 30],
+            sortName: "Name",
+            sortOrder: "asc",
+            columns: [[
+                { field: 'ck', checkbox: true },
+                { field: 'Id', title: '编号', width: 100 },
+                { field: 'Name', title: '部门名称', width: 100, sortable: true },//sortable:true点击该列的时候可以改变升降序
+                { field: 'Parent', title: '上级部门', width: 100 },
+                { field: 'Sort', title: '排序', width: 100 },
+                { field: 'State', title: '状态', width: 100 }]],
+            toolbar: [{//在dategrid表单的头部添加按钮
+                text: "添加",
+                iconCls: "icon-add",
+                handler: function () {
+                    ShowAddDialog();
+                }
+            }, '-', {//'-'就是在两个按钮的中间加一个竖线分割，看着舒服
+                text: "删除",
+                iconCls: "icon-remove",
+                handler: function () {
+                    ShowDeleteDialog();
+
+                }
+            }, '-', {
+                text: "修改",
+                iconCls: "icon-edit",
+                handler: function () {
+                    ShowUpdateDialog();
+                }
+            }, '-']
+
+        });
+    });
+    function ShowUpdateDialog() {
+        window.location.href = "/SysDepartment/Edit/" + $("#dg").datagrid("getSelections")[0].Id;
+    }
+
+    function ShowAddDialog() {
+        window.location.href = "/SysDepartment/Create";
+    }
+</script>
+<div data-options="region:'center',split:false,title:'用户角色'">
+    <table id="dg">
+    </table>
+</div>
+

@@ -1,0 +1,114 @@
+﻿@model IEnumerable<EasyUI.Liuy.Domain.Models.ProductOrder>
+
+@{
+    ViewBag.Title = "List";
+}
+<script>
+    $(function () {
+
+        $("#dg").datagrid({
+            url: "../ProductOrder/ProductOrdersList",
+            //title: "数据",
+            iconCls: "icon-add",
+            singleSelect: false,
+            fitColumns: true,
+            idField: "Id",
+            loadMsg: "正在加载数据",
+            pagination: true,
+            rownumbers: true,
+            pageSize: 10,
+            pageList: [10, 20, 30],
+            sortName: "Name",
+            sortOrder: "asc",
+            columns: [[
+                { field: 'OrderId', title: '商品号', width: 100 },
+                { field: 'CreateTime', title: '日期', width: 100, sortable: true },//sortable:true点击该列的时候可以改变升降序
+                { field: 'CustomerServices', title: '接待客服', width: 100 },
+                { field: 'Customer', title: '顾客姓名', width: 100 },
+                { field: 'TEL', title: '联系电话', width: 100 },
+                { field: 'ProductName', title: '所购商品', width: 100 },
+                { field: 'Quantity', title: '数量', width: 100 },
+                 { field: 'Price', title: '单价', width: 100 },
+                 { field: 'Unit', title: '单位', width: 100 },
+                { field: 'TotalPrice', title: '总价', width: 100 },
+                { field: 'PayoutStatus', title: '支付情况', width: 100 },
+
+                { field: 'Sim', title: 'sim卡号', width: 100 },
+                { field: 'SimStatus', title: 'sim卡开通情况', width: 100 },
+                { field: 'LogisticsId', title: '物流单号', width: 100 },
+                { field: 'ReceivingStatus', title: '收货情况', width: 100 },
+                { field: 'CollectionStatus', title: '收款情况', width: 100 }
+            ]],
+            toolbar: [{//在dategrid表单的头部添加按钮
+                text: "新建工单",
+                iconCls: "icon-add",
+                handler: function () {
+                    ShowAddDialog();
+                }
+            }, '-', {//'-'就是在两个按钮的中间加一个竖线分割，看着舒服
+                text: "删除",
+                iconCls: "icon-remove",
+                handler: function () {
+                    ShowDeleteDialog();
+
+                }
+            }, '-', {
+                text: "追回工单",
+                iconCls: "icon-edit",
+                handler: function () {
+                    //  ShowUpdateDialog();
+                    $.post("../WorkOrder/ExportExcel", {},
+                        function (data) {
+                            alert(data);
+                        }
+                    );
+                }
+            }, '-']
+
+        });
+
+
+        //查询
+        $("#submit").click(function () {
+
+            //var rows = $('#dg').datagrid('getRows');
+            //for (var i = 0; i < rows.length; i++) {
+            //    //获取每一行的数据
+            //    alert(rows[i].Id);//假设有id这个字段
+            //}
+
+            $('#dg').datagrid('load', {
+                Id: $("#Id").val(),
+                Type: $("#Type").combobox('getValue'),
+                State: $("#State").combobox('getValue'),
+                ProcessingMode: $('#ProcessingMode').combobox('getValue'),
+                Phone: $("#Phone").val(),
+                ProductId: $("#ProductId").combobox('getValue'),
+                Company: $("#Company").val(),
+                SI: $("#SI").val(),
+                Service: $("#Service").combobox('getValue'),
+                Cstart: $("#Cstart").datebox('getValue'),
+                Cend: $("#Cend").datebox('getValue'),
+                Astart: $("#Astart").datebox('getValue'),
+                Aend: $("#Aend").datebox('getValue')
+            });
+        });
+    });
+
+
+
+    function clearForm() {
+        window.location.reload();
+    }
+    function excel() {
+
+        $("#form-excel").submit();
+    }
+
+</script>
+<h2>ProductOrderList</h2>
+
+<div data-options="region:'center',split:false,title:'工单'">
+    <table id="dg">
+    </table>
+</div>

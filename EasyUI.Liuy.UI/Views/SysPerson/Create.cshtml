@@ -1,0 +1,120 @@
+﻿@model EasyUI.Liuy.Domain.Models.SysPerson
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<script>
+    function ff_submit() {
+        if ($("#SysRoleId,#SysDepartmentId").val() != "") {
+            $('#ff').form('submit', {
+                success: function(data) {
+                    if (data == "OK") {
+                        window.location.href = "/SysPerson/Index";
+                    }
+                }
+            });
+        } else {
+            $.messager.alert("", "信息不能为空");
+        }
+    }
+</script>
+
+@using (Html.BeginForm("Create", "SysPerson", FormMethod.Post, new { id = "ff", enctype = "multipart/form-data" }))
+{
+ 
+    <div class="easyui-panel" title="新建用户" style="width: auto;">
+        <div class="editor-label">
+            用户名称
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Name, new { @class = "easyui-validatebox" })
+
+        </div>
+
+        <div class="editor-label">
+            姓名
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.MyName)
+
+        </div>
+
+        <div class="editor-label">
+            密码
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Password)
+
+        </div>
+
+        <div class="editor-label">
+            性别
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Sex)
+
+        </div>
+
+        <div class="editor-label">
+            角色
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("SysRoleId", String.Empty)
+            @Html.ValidationMessageFor(model => model.SysRoleId)
+        </div>
+
+        <div class="editor-label">
+            部门
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("SysDepartmentId", String.Empty)
+
+        </div>
+
+        <div class="editor-label">
+            联系电话
+        </div>
+        <div class="editor-field">
+        </div>
+
+        @*    <div class="editor-label">
+            城市
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.City)
+
+        </div>
+
+       <div class="editor-label">
+            @Html.LabelFor(model => model.Village)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Village)
+
+        </div> 
+         <div class="editor-label">
+            @Html.LabelFor(model => model.State)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.State)
+
+        </div>
+       
+        <div class="editor-label">
+            类型
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Type)
+
+        </div>*@
+ @Html.Hidden("State", "启用")
+        <p>
+
+            @Html.ActionLink("添加", null, null, new { onclick = "ff_submit()", iconcls = "icon-add", @class = "easyui-linkbutton", href = "javascript:void(0)" })
+
+            @Html.ActionLink("返回", "Index", null, new { @class = "easyui-linkbutton", iconcls = "icon-back" })
+        </p>
+    </div>
+}
+

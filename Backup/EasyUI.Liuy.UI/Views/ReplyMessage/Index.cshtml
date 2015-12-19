@@ -1,0 +1,69 @@
+﻿@model IEnumerable<EasyUI.Liuy.Domain.Models.ReplyMessage>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.AcceptanceDep)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SI)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WorkOrder.Type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AcceptancePer)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProcessingMode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreateTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProcessingTime)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.AcceptanceDep)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SI)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WorkOrder.Type)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AcceptancePer)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProcessingMode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreateTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProcessingTime)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

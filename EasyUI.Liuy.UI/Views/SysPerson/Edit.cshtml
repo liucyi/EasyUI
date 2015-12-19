@@ -1,0 +1,127 @@
+﻿@model EasyUI.Liuy.Domain.Models.SysPerson
+
+@{
+    ViewBag.Title = "Edit";
+}
+<script>
+    function ff_submit() {
+        $('#ff').form('submit', {
+            success: function (data) {
+                if (data == "OK") {
+                    window.location.href = "/SysPerson/Index";
+                }
+            }
+        });
+    }
+</script>
+
+@using (Html.BeginForm("Edit", "SysPerson", FormMethod.Post, new { id = "ff", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>修改信息</legend>
+
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="editor-label">
+          用户名称
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)
+        </div>
+
+        <div class="editor-label">
+           姓名
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.MyName)
+            @Html.ValidationMessageFor(model => model.MyName)
+        </div>
+
+        <div class="editor-label">
+            密码
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Password)
+            @Html.ValidationMessageFor(model => model.Password)
+        </div>
+
+        <div class="editor-label">
+           性别
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Sex)
+            @Html.ValidationMessageFor(model => model.Sex)
+        </div>
+
+        <div class="editor-label">
+           角色
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("SysRoleId", String.Empty)
+            @Html.ValidationMessageFor(model => model.SysRoleId)
+        </div>
+
+        <div class="editor-label">
+           部门
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("SysDepartmentId", String.Empty)
+            @Html.ValidationMessageFor(model => model.SysDepartmentId)
+        </div>
+
+        <div class="editor-label">
+          联系电话
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.PhoneNumber)
+            @Html.ValidationMessageFor(model => model.PhoneNumber)
+        </div>
+
+      @*  <div class="editor-label">
+            @Html.LabelFor(model => model.City)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.City)
+            @Html.ValidationMessageFor(model => model.City)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Village)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Village)
+            @Html.ValidationMessageFor(model => model.Village)
+        </div>
+
+   
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Type)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Type)
+            @Html.ValidationMessageFor(model => model.Type)
+        </div>*@
+     <div class="editor-label">
+            @Html.LabelFor(model => model.State)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.State)
+            @Html.ValidationMessageFor(model => model.State)
+        </div>
+          <p>
+            @Html.ActionLink("修改", null, null, new { onclick = "ff_submit()", iconcls="icon-ok", @class = "easyui-linkbutton", href = "javascript:void(0)" })
+
+            @Html.ActionLink("返回", "Index",null,new{@class="easyui-linkbutton", iconcls="icon-back"})
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+ 

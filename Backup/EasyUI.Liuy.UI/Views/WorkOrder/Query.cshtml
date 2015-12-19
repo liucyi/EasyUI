@@ -1,0 +1,212 @@
+﻿@{
+    ViewBag.Title = "工单查询";
+}
+<script>
+    $(function () {
+
+        $("#dg").datagrid({
+            url: "../WorkOrder/DataGrid",
+            //title: "数据",
+            iconCls: "icon-add",
+            singleSelect: false,
+            fitColumns: true,
+            idField: "Id",
+            loadMsg: "正在加载数据",
+            pagination: true,
+            rownumbers: true,
+            pageSize: 10,
+            pageList: [10, 20, 30],
+            sortName: "Name",
+            sortOrder: "asc",
+            columns: [[
+               {
+                   field: 'Id', title: '编号', width: 100,
+                   formatter: function (val, rec) {
+                       return "<a  href='javascript:void(0)' onclick='ShowUpdateDialog()'>" + val + "</a>";
+                   }
+               },
+                { field: 'Type', title: '工单类型', width: 100, sortable: true },//sortable:true点击该列的时候可以改变升降序
+                { field: 'Name', title: '产品名称', width: 100 },
+                { field: 'Terminal', title: '终端号', width: 100 },
+                { field: 'Quantity', title: '数量', width: 100 },
+                { field: 'Company', title: '客户名称', width: 100 },
+                { field: 'Contact', title: '联系人', width: 100 }, { field: 'State', title: '状态', width: 100 },
+                { field: 'Sex', title: '性别', width: 100 },
+                { field: 'Phone', title: '电话', width: 100 },
+                { field: 'ProblemDescription', title: '问题描述', width: 100 },
+                { field: 'Attachment', title: '上传附件', width: 100 },
+                { field: 'ProcessingMode', title: '处理模式', width: 100 },
+                { field: 'SI', title: 'SI', width: 100 },
+                { field: 'Suggestion', title: '处理意见', width: 100 },
+                { field: 'Service', title: '服务', width: 100 }]],
+
+
+        });
+
+
+        //查询
+        $("#submit").click(function () {
+
+            //var rows = $('#dg').datagrid('getRows');
+            //for (var i = 0; i < rows.length; i++) {
+            //    //获取每一行的数据
+            //    alert(rows[i].Id);//假设有id这个字段
+            //}
+            $("#hid").val($("#Id").val());
+            $("#hCompany").val($("#Company").val());
+            $("#hService").val($("#Service").combobox('getValue'));
+            $("#Astart").val($("#Astart").datebox('getValue'));
+            $("#Aend").val($("#Aend").datebox('getValue'));
+            $("#hType").val($("#Type").combobox('getValue'));
+            $("#hState").val($("#State").combobox('getValue'));
+
+            $("#hProcessingMode").val($('#ProcessingMode').combobox('getValue'));
+            $("#hPhone").val($("#Phone").val());
+            $("#hProductId").val($("#ProductId").combobox('getValue'));
+            $('#dg').datagrid('load', {
+                Id: $("#Id").val(),
+                Type: $("#Type").combobox('getValue'),
+                State: $("#State").combobox('getValue'),
+                ProcessingMode: $('#ProcessingMode').combobox('getValue'),
+                Phone: $("#Phone").val(),
+                ProductId: $("#ProductId").combobox('getValue'),
+                Company: $("#Company").val(),
+                SI: $("#SI").val(),
+                Service: $("#Service").combobox('getValue'),
+                Cstart: $("#Cstart").datebox('getValue'),
+                Cend: $("#Cend").datebox('getValue'),
+                Astart: $("#Astart").datebox('getValue'),
+                Aend: $("#Aend").datebox('getValue')
+            });
+        });
+    });
+
+
+    function clearForm() {
+        window.location.reload();
+    }
+    function excel() {
+
+        $("#form-excel").submit();
+    }
+
+</script>
+
+<div class="easyui-panel" data-options="region:'north',title:'工单详细信息'" style="width: auto; padding: 10px" border="false" fit="true">
+    <form id="ff">
+        <table>
+            <tr>
+                <td>工单号:</td>
+                <td>
+                    <input class="easyui-validatebox" type="text" id="Id" name="Id" data-options="required:true" value ="@ViewBag.Id" ></input></td>
+                <td>工单类型:</td>
+                <td>
+                    <select class="easyui-combobox" name="Type" id="Type">
+                        <option value=""></option>
+                        <option value="客户投诉">客户投诉</option>
+                        <option value="故障处理">故障处理</option>
+                        <option value="工作调度">工作调度</option>
+                        <option value="优化需求">优化需求</option>
+                        <option value="业务开通">业务开通</option>
+                        <option value="终端申请">终端申请</option>
+                    </select>
+                </td>
+                <td>状态:</td>
+                <td>
+                    <select class="easyui-combobox" name="State" id="State">
+                        <option value=""></option>
+                        <option value="未归档">未归档</option>
+                        <option value="已归档">已归档</option>
+                        <option value="待处理">待处理</option>
+                        <option value="已处理">已处理</option>
+                        <option value="已冻结">已冻结</option>
+                        <option value="全部">全部</option>
+
+                    </select>
+                <td>归档类型:</td>
+                <td>
+                    <select class="easyui-combobox" name="ProcessingMode" id="ProcessingMode">
+                        <option value=""></option>
+                        <option value="直接归档">直接归档</option>
+                        <option value="转相关SI">转相关SI</option>
+                    </select>
+            </tr>
+            <tr>
+
+
+                <td>联系电话:</td>
+                <td>
+                    <input class="easyui-validatebox" type="text" name="Phone" data-options="required:false" id="Phone"></input></td>
+                <td>相关产品:</td>
+                <td>
+                    <select class="easyui-combobox" name="ProductId" id="ProductId">
+                        <option value=""></option>
+                        <option value="1">摩托车防盗器</option>
+                    </select>
+                </td>
+                <td>集团客户:</td>
+                <td>
+                    <input class="easyui-validatebox" type="text" name="Company" data-options="required:false" id="Company"></input></td>
+                <td>服务类型:</td>
+                <td>
+                    <select class="easyui-combobox" name="Service" id="Service">
+                        <option value=""></option>
+                        <option value="终端类">终端类</option>
+                        <option value="费用类">费用类</option>
+                        <option value="其他">其他</option>
+                    </select>
+                </td>
+
+            </tr>
+            <tr>
+                <td>建单时间：</td>
+                <td>
+                    <input id="Cstart" name="Cstart" type="text" class="easyui-datebox" required="required"></input>
+                </td>
+                <td>截止时间：</td>
+                <td>
+                    <input id="Cend" name="Cend" type="text" class="easyui-datebox" required="required"></input>
+                </td>
+                <td id="obj">涉及SI:</td>
+                <td id="objselect">
+                    <select class="easyui-combobox" name="SI" id="SI">
+                        <option value=""></option>
+                        <option value="重庆君翰科技有限公司">重庆君翰科技有限公司</option>
+                        <option value="上海捷波">上海捷波</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>归档时间</td>
+                <td>
+                    <input id="Astart" type="text" class="easyui-datebox" required="required" />
+                </td>
+                <td>截止时间</td>
+                <td>
+                    <input id="Aend" type="text" class="easyui-datebox" required="required" />
+                </td>
+                <td><a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()">清除</a></td>
+
+                <td><a href="javascript:void(0)" class="easyui-linkbutton" id="submit">确定</a></td>
+
+                <td><a href="javascript:void(0)" class="easyui-linkbutton" id="submit-excel" onclick="excel()">导出EXCEL</a></td>
+            </tr>
+        </table>
+    </form>
+    <form id="form-excel" method="POST" action="../WorkOrder/ExportExcel">
+        <input type="hidden" name="hid"  id="hid" value="@ViewBag.hid"/>
+        <input type="hidden" name="hType" id="hType" value="@ViewBag.Type"/>
+        <input type="hidden" name="hState"  id="hState" value="@ViewBag.State"/>
+        <input type="hidden" name="hProcessingMode" id="hProcessingMode" value="@ViewBag.ProcessingMode"/>
+        <input type="hidden" name="hPhone" id="hPhone" value="@ViewBag.Phone"/>
+        <input type="hidden"  name="hProductId" id="hProductId" value="@ViewBag.ProductId"/>
+        <input type="hidden" name="hCompany" id="hCompany" value="@ViewBag.Company"/>
+        <input type="hidden"  name="hService" id="hService" value="@ViewBag.Service"/>
+    </form>
+
+    <div data-options="region:'center',split:false,title:'工单'">
+        <table id="dg">
+        </table>
+    </div>
+</div>
+

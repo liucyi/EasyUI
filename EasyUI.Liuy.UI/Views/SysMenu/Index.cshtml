@@ -1,0 +1,331 @@
+﻿@{
+    Layout = null;
+}
+<link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+<meta name="viewport" content="width=device-width" />
+
+<link href="~/Scripts/jquery-easyui-1.3.3/themes/default/easyui.css" rel="stylesheet" />
+<link href="~/Scripts/jquery-easyui-1.3.3/themes/icon.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-easyui-1.3.3/jquery.min.js"></script>
+<script src="~/Scripts/jquery-easyui-1.3.3/jquery.easyui.min.js"></script>
+<script src="~/Scripts/jquery-easyui-1.3.3/locale/easyui-lang-zh_CN.js"></script>
+
+
+<script>
+
+  
+    $(function () {
+        UpdateClickEvent();
+        AddClickEvent();
+
+        $("#dg").datagrid({
+         
+            url: "../SysMenu/DataGrid",
+            //title: "数据",
+            iconCls: "icon-add",
+            singleSelect: false,
+            fitColumns: false,
+            idField: "id",
+            loadMsg: "正在加载数据",
+            pagination: true,
+            rownumbers: true,
+            pageSize: 10,
+            pageList: [10, 20, 30],
+            sortName: "name",
+            sortOrder: "asc",
+            columns: [[
+                { field: 'ck', checkbox: true },
+                { field: 'Id', title: 'Id', width: 100 },
+                { field: 'Name', title: 'Name', width: 100, sortable: true },//sortable:true点击该列的时候可以改变升降序
+                { field: 'ParentId', title: 'ParentId', width: 100 },
+                { field: 'Url', title: 'Url', width: 100 },
+                  { field: 'Sort', title: 'Sort', width: 100 },
+                { field: 'Iconic', title: 'Iconic', width: 100 },
+                    { field: 'Remark', title: 'Remark', width: 100 },
+                { field: 'State', title: 'State', width: 100 },
+                    { field: 'IsLeaf', title: 'IsLeaf', width: 100 }
+
+            ]],
+            toolbar: [{//在dategrid表单的头部添加按钮
+                text: "添加",
+                iconCls: "icon-add",
+                handler: function () {
+                    ShowAddDialog();
+                }
+            }, '-', {//'-'就是在两个按钮的中间加一个竖线分割，看着舒服
+                text: "删除",
+                iconCls: "icon-remove",
+                handler: function () {
+                    ShowDeleteDialog();
+
+                }
+            }, '-', {
+                text: "修改",
+                iconCls: "icon-edit",
+                handler: function () {
+                    ShowUpdateDialog();
+                }
+            }, '-']
+
+        });
+    });
+    //点击查找按钮出发事件
+    function searchFunc() {
+        alert("123");
+        $("#dg").datagrid("load", sy.serializeObject($("#searchForm").form()));//将searchForm表单内的元素序列为对象传递到后台
+    }
+
+    //点击清空按钮出发事件
+    function clearSearch() {
+        $("#dg").datagrid("load", {});//重新加载数据，无填写数据，向后台传递值则为空
+        $("#searchForm").find("input").val("");//找到form表单下的所有input标签并清空
+    }
+
+    //点击添加事件
+    function ShowAddDialog() {
+        $("#AddDialog").dialog("open").dialog('setTitle', '添加用户信息');
+    }
+    //点击删除事件
+    function ShowDeleteDialog() {
+        if (confirm("确定删除？")) {
+            var id = $("#dg").datagrid("getSelections")[0].Id;
+            alert(id);
+            $.post(
+                "SysMenu/Delete",
+                  { id: id },
+                 function (date) {
+                     if (date == "OK") {
+                         //     $("#UpdateDialog").dialog('close');
+                         alert("2w");
+                         $("#dg").datagrid('reload');
+                     }
+                     else {
+                         alert("修改失败，请检查");
+                     }
+                 }
+                );
+        }
+
+    }
+    
+    //点击修改事件
+    function ShowUpdateDialog() {
+
+
+        $("#UpdateDialog").dialog("open").dialog("setTitle", "修改用户信息");
+
+        //绑定显示修改的详细信息的内容
+        BingUpdateDialog();
+
+
+    }
+
+    //绑定修改用户的信息显示在用户的TextBox文本框中
+    function BingUpdateDialog() {
+        //首先获取选中的用户的ID
+        var id = $("#dg").datagrid("getSelections")[0].Id;
+        alert(id);
+        //使用异步的getJSON请求绑定前台传递过来的数据
+        $.getJSON("SysMenu/Details", { id: id }, function (date) {
+
+            $("#Id").val(id);
+            $("#Name").val(date.Name);
+            $("#ParentId").val(date.ParentId);
+            $("#Url").val(date.Url);
+            $("#Iconic").val(date.Iconic);
+            $("#Remark").val(date.Remark);
+            $("#State").val(date.State);
+            $("#IsLeaf").val(date.IsLeaf);
+        });
+    }
+
+    //修改信息
+    function UpdateClickEvent() {
+        $("#btnUpdate").click(function () {
+
+            //首先判断前台的验证是否通过
+            //var valid = $('#UpdateInfo').form('validate');
+            //if (valid == false) {
+            //    return false;
+            //}
+
+
+            //var postData = {
+            //    Id: $("#Id").val(),
+            //    Name: $("#Name").val(),
+            //    ParentId: $("#ParentId").val(),
+            //    Url: $("#Url").val()
+            //    Iconic: $("#Iconic").val(),
+            //    Remark: $("#Remark").val(),
+            //    State: $("#State").val(),
+            //    IsLeaf: $("#IsLeaf").val()
+            //};
+
+            //使用异步实现修改用户信息
+            $.post(
+                "SysMenu/Edit",
+                sy.serializeObject($("#UpdateInfo").form()),
+                function (date) {
+                    if (date == "OK") {
+                        $("#UpdateDialog").dialog('close');
+                        $("#dg").datagrid('reload');
+                    }
+                    else {
+                        alert("修改失败，请检查");
+                    }
+                });
+        });
+
+    }
+
+    //添加信息
+
+    function AddClickEvent() {
+        $("#btnRegist").click(function () {
+            $.post(
+                      "SysMenu/Create",
+                         sy.serializeObject($("#AddInfo").form()),
+                      function (date) {
+                          if (date == "OK") {
+                              $("#AddDialog").dialog('close');
+                              $("#dg").datagrid('reload');
+                          }
+                          else {
+                              alert("修改失败，请检查");
+                          }
+                      });
+        });
+
+
+
+    }
+
+
+</script>
+<div class="easyui-tabs" fit="true" border="false" id="tabs">
+    <div title="数据展示表格" border="false" fit="true">
+        <div class="easyui-layout" fit="true" border="false">
+            <!--由于查询需要输入条件，但是以toolbar的形式不好，所以我们在Layout框架的头部north中书写查询的相关信息-->
+            <!-- 这里我们尽量使其展示的样式与toolbar的样式相似，所以我们先查找toolbar的样式，并复制过来-->
+            <div data-options="region:'north',title:'高级查询'" style="height: 100px; background: #F4F4F4;">
+                <form id="searchForm">
+                    <table>
+                        <tr>
+                            <th>栏目名称：</th>
+                            <td>
+                                <input name="menuName" /></td>
+                            <th>连接地址：</th>
+                            <td>
+                                <input name="url" /></td>
+                        </tr>
+                        <tr>
+                            <th>创建开始时间</th>
+                            <td>
+                                <input class="easyui-datetimebox" editable="false" name="subStartTime" /></td>
+                            <!--由于datebox框架上面的数据必须是时间格式的，所以我们用editable="false"来禁止用户手动输入，以免报错-->
+                            <th>创建结束时间</th>
+                            <td>
+                                <input class="easyui-datetimebox" editable="false" name="nsubEndTimeame" /></td>
+                            <td><a class="easyui-linkbutton" href="javascript:void(0);" onclick="searchFunc();">查找</a></td>
+                            <td><a class="easyui-linkbutton" href="javascript:void(0);" onclick="clearSearch();">清空</a></td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+            <div data-options="region:'center',split:false">
+                <table id="dg">
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div id="AddDialog" class="easyui-dialog" style="width: 360px; height: 300px; padding: 10px 20px"
+    closed="true" resizable="true" modal="true" buttons="#dlg-buttons" align="center">
+    <form id="AddInfo" method="post" novalidate="novalidate">
+        <table id="tblAdd">
+            <tr>
+                <td>
+                    <label for="ID">用户ID:</label></td>
+                <td>
+                    <input class="easyui-validatebox" type="text" id="Id1" name="Id1" readonly="true" /></td>
+                <td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="Name">栏目名称：</label></td>
+                <td>
+                    <input class="easyui-validatebox" type="text" id="Name1" name="Name1" /></td>
+                <td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="ParentId">父栏：</label></td>
+                <td>
+                    <input class="easyui-validatebox" type="text" id="ParentId1" name="ParentId1" /></td>
+            </tr>
+
+
+            <tr>
+                <td>
+                    <label for="Url">链接:</label></td>
+
+                <td>
+                    <input class="easyui-validatebox" type="text" id="Url1" name="Url1" /></td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align: center; padding-top: 10px">
+                    <a href="javascript:void(0)" class="easyui-linkbutton" id="btnRegist" iconcls="icon-ok">确定</a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-cancel" onclick="javascript:$('#AddUserDialog').dialog('close')">关闭</a>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+<div id="UpdateDialog" class="easyui-dialog" style="width: 360px; height: 300px; padding: 10px 20px"
+    closed="true" resizable="true" modal="true" buttons="#dlg-buttons" align="center">
+    <form id="UpdateInfo" method="post" novalidate="novalidate">
+        <table id="tblUpdate">
+
+            <tr>
+                <td>
+                    <label for="ID">用户ID:</label></td>
+                <td>
+                    <input class="easyui-validatebox" type="text" id="Id" name="Id" readonly="true" /></td>
+                <td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="Name">栏目名称：</label></td>
+                <td>
+                    <input class="easyui-validatebox" type="text" id="Name" name="Name" /></td>
+                <td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="ParentId">父栏：</label></td>
+                <td>
+                    <input class="easyui-validatebox" type="text" id="ParentId" name="ParentId" /></td>
+            </tr>
+
+
+            <tr>
+                <td>
+                    <label for="Url">链接:</label></td>
+
+                <td>
+                    <input class="easyui-validatebox" type="text" id="Url" name="Url" /></td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align: center; padding-top: 10px">
+                    <a href="javascript:void(0)" class="easyui-linkbutton" id="btnUpdate" iconcls="icon-ok">确定</a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-cancel" onclick="javascript:$('#UpdateDialog').dialog('close');">关闭</a>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+

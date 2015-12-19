@@ -1,0 +1,183 @@
+﻿@{
+    ViewBag.Title = "Acceptance";
+}
+
+<script>
+
+    function submitForm() {
+        $('#ff').form('submit');
+    }
+    function clearForm() {
+        window.location.reload();
+    }
+
+    $(function () {
+        //$("#submit").click(function () {
+
+        //    $.post(
+        //        "../WorkOrder/Create",
+        //        sy.serializeObject($(k"#ff").form()),
+        //        function (data) {
+        //            $.messager.alert('新建工单', '成功!', 'info');
+        //        }
+        //    );
+        //});
+
+        //隐藏Si
+        $("#obj").css("display", "none");
+        $("#objselect").css("display", "none");
+        //处理方式
+        $('#ProcessingMode').combobox({
+            onChange: function () {
+                if ($('#ProcessingMode').combobox("getValue") == "转相关SI") {
+                    $("#obj").css("display", "block");
+                    $("#objselect").css("display", "block");
+                    $("#State").val("待处理");
+                } else {
+                    $("#obj").css("display", "none");
+                    $("#objselect").css("display", "none");
+                    $("#State").val("完成");
+
+                }
+            }
+        });
+
+
+
+
+
+
+    });
+
+</script>
+<form id="ff" method="POST">
+    <input type="hidden" id="AcceptanceDep" />
+    <input type="hidden" id="AcceptancePer" />
+    <input type="hidden" id="AcceptancePhone" />
+
+    <div class="easyui-panel" title="新建工单" style="width: auto;">
+        <div style="padding: 10px 0 10px 100px">
+
+            <table>
+                <tr>
+                    <td>工单号:</td>
+                    <td>
+                        <input class="easyui-validatebox" type="text" name="Id" data-options="required:true" value ="@ViewBag.Id" ></input></td>
+                    <td>工单类型:</td>
+                    <td>
+                        <select class="easyui-combobox" name="Type">
+                            <option value="客户投诉">客户投诉</option>
+                            <option value="故障处理">故障处理</option>
+                            <option value="工作调度">工作调度</option>
+                        </select>
+                    </td>
+                </tr>
+
+                <tr>
+                    @*<td>相关SI:</td>
+                    <td>
+                        <select class="easyui-combobox" name="SI">
+                            <option value="重庆君翰科技有限公司">重庆君翰科技有限公司</option>
+
+                            <option value="上海捷波">上海捷波</option>
+                        </select>
+                    </td>*@
+                    <input type="hidden" id="State" name="State" value="完成" />
+                    <td>SIM卡号:</td>
+                    <td>
+                        <input class="easyui-validatebox" type="text" name="SIM" data-options="required:false"></input></td>
+                </tr>
+
+                <tr>
+                    <td>相关产品:</td>
+                    <td>
+                        <select class="easyui-combobox" name="ProductId">
+                            <option value="1">摩托车防盗器</option>
+
+                        </select>
+                    </td>
+                    <td>终端编号:</td>
+                    <td>
+                        <input class="easyui-validatebox" type="text" name="Terminal" data-options="required:false"></input></td>
+
+                </tr>
+                <tr>
+                    <td>服务类型:</td>
+                    <td>
+                        <select class="easyui-combobox" name="Service">
+                            <option value="终端类">终端类</option>
+                            <option value="费用类">费用类</option>
+                            <option value="其他">其他</option>
+                        </select>
+                    </td>
+                    <td>终端数量:</td>
+                    <td>
+                        <input class="easyui-validatebox" type="text" name="Quantity" data-options="required:true"></input></td>
+
+                </tr>
+                <tr>
+                    <td>客户名称:</td>
+                    <td>
+                        <input class="easyui-validatebox" type="text" name="Company" data-options="required:true"></input></td>
+
+                    <td>联系人:</td>
+                    <td>
+                        <input class="easyui-validatebox" type="text" name="Contact" data-options="required:true"></input></td>
+                </tr>
+                <tr>
+                    <td>性别:</td>
+                    <td>
+                        <select class="easyui-combobox" name="Sex">
+                            <option value="男">男</option>
+                            <option value="女">女</option>
+                        </select>
+                    </td>
+                    <td>联系电话:</td>
+                    <td>
+                        <input class="easyui-validatebox" type="text" name="Phone" data-options="required:true"></input></td>
+                </tr>
+                <tr>
+                    <td>问题描述:</td>
+                    <td colspan="3">
+                        <textarea name="ProblemDescription" style="height: 60px; width: 410px"></textarea></td>
+                </tr>
+                <tr>
+                    <td>相关附件:</td>
+                    <td colspan="3">
+                        <textarea name="Attachment" style="height: 60px; width: 410px"></textarea></td>
+                </tr>
+                <tr>
+                    <td>处理方式:</td>
+                    <td>
+                        <select class="easyui-combobox" name="ProcessingMode" id="ProcessingMode">
+                            <option value="直接归档">直接归档</option>
+                            <option value="转相关SI">转相关SI</option>
+                        </select>
+                    </td>
+
+                    <td id="obj">转交对象:</td>
+                    <td id="objselect">
+                        <select class="easyui-combobox" name="SI">
+                            <option value="重庆君翰科技有限公司">重庆君翰科技有限公司</option>
+                            <option value="上海捷波">上海捷波</option>
+                        </select>
+                    </td>
+
+
+                </tr>
+                <tr>
+                    <td>处理意见:</td>
+                    <td colspan="3">
+                        <textarea name="Suggestion" style="height: 60px; width: 410px"></textarea></td>
+                </tr>
+
+            </table>
+
+        </div>
+        <div style="text-align: center; padding: 5px 220px 10px 10px">
+
+            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()">清除</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()" id="submit">确定</a>
+        </div>
+    </div>
+</form>

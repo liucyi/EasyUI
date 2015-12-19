@@ -1,0 +1,62 @@
+﻿@model  EasyUI.Liuy.UI.ViewModels.LoginModel
+@{
+    ViewBag.Title = "Login";
+}
+<script type="text/javascript">
+    $(function () {
+        $("#valiCode").bind("click", function () {
+            this.src = '@Url.Content("~/Captcha/Show")/' + +Math.floor(Math.random() * 10000);
+        });
+    });
+    function submitForm() {
+        if ($("#UserName").val() != "" && $("#Password").val() != "" && $("#ValidateCode").val() != "") {
+            $('#ff').form('submit', {
+                success: function (data) {
+                    if (data == "OK") {
+                        window.location.href = "/Home/Index";
+                    } else if (data == "Error") {
+                        alert("验证码错误！");
+                        window.location.href = "/Home/Login";
+                    }
+                }
+            });
+        }
+    }
+</script>
+<link href="~/Content/blue-login-box-html/login-box.css" rel="stylesheet" type="text/css" />
+<body bgcolor="#4174B9">
+    <form id="ff" method="POST">
+        <div style="padding: 100px 0 0 450px;">
+            <div id="login-box">
+                <h2>防盗器管理平台</h2>
+                订单及工单信息管理.
+            <br />
+                <br />
+                @Html.ValidationMessageFor(model => model.UserName)
+                <div id="login-box-name" style="margin-top: 20px;">用户名:</div>
+                <div id="login-box-field" style="margin-top: 20px;">
+                    <input name="UserName" class="form-login" title="UserName" value="" size="30" maxlength="2048" id="UserName" data-options="required:true" />
+
+                </div>
+                <div id="login-box-name">密码:</div>
+                <div id="login-box-field">
+                    <input name="Password" type="password" class="form-login" title="Password" value="" size="30" maxlength="2048" id="Password" data-options="required:true" />
+                </div>
+                <div id="login-box-name" style="margin-top: 0px;">
+                    <img id="valiCode" style="cursor: pointer;" src='@Url.Content("~/Captcha/Show")' alt="验证码" />
+                </div>
+                <div id="login-box-field" style="margin-top: 0px;">
+
+                    <input name="ValidateCode" type="text" class="form-login" value="" size="4" maxlength="4" id="ValidateCode" data-options="required:true" />
+                    <br />
+                    @Html.ValidationMessageFor(model => model.ValidateCode)
+                </div>
+
+                <a href="javascript:void(0)" onclick="submitForm()">
+                    <img src="~/Content/blue-login-box-html/images/login-btn.png" width="103" height="42" style="margin-left: 90px;" />
+                </a>
+            </div>
+
+        </div>
+    </form>
+</body>

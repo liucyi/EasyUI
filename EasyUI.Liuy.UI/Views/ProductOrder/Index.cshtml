@@ -1,0 +1,33 @@
+﻿@{
+    ViewBag.Title = "导入excel表格";
+}
+ 
+<script>
+    $(function () {
+        $("#Attachment").change(function () {
+            var att = $("#Attachment").val();
+            $("#hid-Attachment").val(att);
+        });
+    })
+</script>
+@using (Html.BeginForm("ImportExcel", "ProductOrder", FormMethod.Post, new { id = "ff", enctype = "multipart/form-data" }))
+{
+    <div class="easyui-panel" title="受理工单" style="width: auto;">
+        <div style="padding: 10px 0 10px 400px">
+            <table style="text-align: center;">
+                <tr>
+                    <td>上传附件:</td>
+                    <td colspan="3">
+                        <input type="file" name="Attachment" id="Attachment" />
+                        <input type="hidden" name="hid-Attachment" id="hid-Attachment" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div style="text-align: center; padding: 5px 220px 10px 250px">
+            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="window.history.go(-1)">返回</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()" id="submit">按指定方式处理</a>
+            <input type="submit" value="提交" />
+        </div>
+    </div>
+}

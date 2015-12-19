@@ -1,0 +1,46 @@
+﻿@model  EasyUI.Liuy.UI.ViewModels.LoginModel
+@{
+    ViewBag.Title = "Login";
+}
+<script type="text/javascript">
+    $(function () {
+        $("#valiCode").bind("click", function () {
+            this.src = '@Url.Content("~/Captcha/Show")/' + +Math.floor(Math.random() * 10000);
+        });
+    });
+
+</script>
+<link href="~/Content/login.css" rel="stylesheet" />
+
+<div id="login-box">
+    <div class="login-top"></div>
+    <div class="login-top"></div>
+    @using (Html.BeginForm())
+    {  <div class="login-main">
+        <dl>
+            <dt>用户名：</dt>
+            <dd>
+                @Html.TextBoxFor(m => m.UserName)
+            </dd>
+            <dt>密&nbsp;&nbsp;码：</dt>
+            <dd>
+                @Html.PasswordFor(m => m.Password)
+            </dd>
+            @*   <img alt="点击刷新验证码！" title="点击刷新验证码！" src="@Url.Content("ValidateCode")" style="cursor: pointer;"
+                                onclick="RefreshValidateCode(this);" />*@
+            <dt>
+                <img id="valiCode" style="cursor: pointer;" src='@Url.Content("~/Captcha/Show")' alt="验证码" /></dt>
+            <dd style="width: 150px">
+                @Html.TextBoxFor(m => m.ValidateCode, new { @style = "width:40px;" })
+                @Html.ValidationMessageFor(model => model.ValidateCode)
+                @*    @Html.ValidationMessageFor(model => model.PersonName)
+                        @Html.ValidationMessageFor(model => model.Password)*@
+
+            </dd>
+            <dt style="float: right">
+                <button type="submit" name="sm1" class="login-btn" onclick="this.form.submit();">登录</button></dt>
+            <input type="hidden" value="@ViewBag.ReturnUrl" id="ReturnUrl"/>
+        </dl>
+    </div>}
+    <div class="login-power">Powered by<a href="http://www.dedecms.com/" title="DedeCMS官网"><strong></strong></a>© 2004-2013 <a href="http://www.desdev.cn/" target="_blank"></a> Inc.</div>
+</div>

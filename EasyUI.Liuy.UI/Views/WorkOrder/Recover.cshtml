@@ -1,0 +1,143 @@
+﻿@{
+    ViewBag.Title = "Recover";
+}
+
+<script>
+    $(function () {
+
+        $("#dg").datagrid({
+            url: "../WorkOrder/DataGrid",
+            //title: "数据",
+            iconCls: "icon-add",
+            singleSelect: false,
+            fitColumns: true,
+            idField: "Id",
+            loadMsg: "正在加载数据",
+            pagination: true,
+            rownumbers: true,
+            pageSize: 10,
+            pageList: [10, 20, 30],
+            sortName: "Name",
+            sortOrder: "asc",
+            columns: [[
+
+             {
+                 field: 'Id', title: '编号', width: 100,
+                 formatter: function (val, rec) {
+                     return  "<a href=/WorkOrder/Details?id=" + val + "&type=1>" + val + "</a>";
+                 }
+             },
+                { field: 'Type', title: '工单类型', width: 100, sortable: true },//sortable:true点击该列的时候可以改变升降序
+                { field: 'Name', title: '产品名称', width: 100 },
+                { field: 'Terminal', title: '终端号', width: 100 },
+                { field: 'Quantity', title: '数量', width: 100 },
+                { field: 'Company', title: '客户名称', width: 100 },
+                { field: 'Contact', title: '联系人', width: 100 }, { field: 'State', title: '状态', width: 100 },
+                { field: 'Sex', title: '性别', width: 100 },
+                { field: 'Phone', title: '电话', width: 100 },
+                { field: 'ProblemDescription', title: '问题描述', width: 100 },
+                { field: 'Attachment', title: '上传附件', width: 100 },
+                { field: 'ProcessingMode', title: '处理模式', width: 100 },
+                { field: 'SI', title: 'SI', width: 100 },
+                { field: 'Suggestion', title: '处理意见', width: 100 },
+                { field: 'Service', title: '服务', width: 100 }]],
+        });
+
+    
+        //查询
+        $("#submit").click(function () {
+ 
+            $('#dg').datagrid('load', {
+                Id: $("#Id").val(),
+                Type: $("#Type").combobox('getValue'),
+               
+       
+        
+                ProductId: $("#ProductId").combobox('getValue'),
+                Company: $("#Company").val(),
+                SI: $("#SI").val(),
+          
+                Cstart: $("#Cstart").datebox('getValue'),
+                Cend: $("#Cend").datebox('getValue') 
+            });
+        });
+    });
+
+    function clearForm() {
+        window.location.reload();
+    }
+    //导出excel
+    function excel() {
+        $("#form-excel").submit();
+    }
+
+</script>
+
+<div class="easyui-panel" data-options="region:'north',title:'工单详细信息'" style="width: auto; padding: 10px" border="false" fit="true">
+    <form id="ff">
+        <table>
+            <tr>
+                <td>工单号:</td>
+                <td>
+                    <input class="easyui-validatebox" type="text" id="Id" name="Id" data-options="required:true" value ="@ViewBag.Id" ></input></td>
+                <td>工单类型:</td>
+                <td>
+                    <select class="easyui-combobox" name="Type" id="Type">
+                        <option value=""></option>
+                        <option value="客户投诉">客户投诉</option>
+                        <option value="故障处理">故障处理</option>
+                        <option value="工作调度">工作调度</option>
+                        <option value="优化需求">优化需求</option>
+                        <option value="业务开通">业务开通</option>
+                        <option value="终端申请">终端申请</option>
+                    </select>
+                </td>
+                <td id="obj">涉及SI:</td>
+                <td id="objselect">
+                    <select class="easyui-combobox" name="SI" id="SI">
+                        <option value=""></option>
+                        <option value="重庆君翰科技有限公司">重庆君翰科技有限公司</option>
+                        <option value="上海捷波">上海捷波</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+
+
+                <td>相关产品:</td>
+                <td>
+                    <select class="easyui-combobox" name="ProductId" id="ProductId">
+                        <option value=""></option>
+                        <option value="1">摩托车防盗器</option>
+                    </select>
+                </td>
+                <td>集团客户:</td>
+                <td>
+                    <input class="easyui-validatebox" type="text" name="Company" data-options="required:false" id="Company"></input></td>
+                <td><a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()">清除</a></td>
+            </tr>
+            <tr>
+                <td>建单时间：</td>
+                <td>
+                    <input id="Cstart" type="text" class="easyui-datebox" required="required"></input>
+                </td>
+                <td>截止时间：</td>
+                <td>
+                    <input id="Cend" type="text" class="easyui-datebox" required="required"></input>
+                </td>
+                <td><a href="javascript:void(0)" class="easyui-linkbutton" id="submit">确定</a></td>
+            </tr>
+            <tr>
+ 
+
+
+            </tr>
+        </table>
+    </form>
+
+    <div data-options="region:'center',split:false,title:'工单'">
+        <table id="dg">
+        </table>
+    </div>
+
+</div>

@@ -1,0 +1,332 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<script>
+    $(function () {
+        //初始化
+        UpdateClickEvent();
+        AddClickEvent();
+
+        $("#SysRoleId1,#SysRoleId").combobox({
+            url: "/SysRole/GetRoleList",
+            width: 70,
+            editable: false,
+            valueField: "Id",
+            textField: "Name",
+            panelHeight: "auto"
+        });
+        $("#SysDepartmentId1,#SysDepartmentId").combobox({
+            url: "/SysDepartment/DataGrid",
+            width: 75,
+            panelWidth: "auto",
+            valueField: "Id",
+            textField: "Name",
+            panelHeight: "auto"
+        });
+        $("#dg").datagrid({
+            url: "../SysPerson/DataGrid",
+            //title: "数据",
+            iconCls: "icon-add",
+            singleSelect: false,
+            fitColumns: true,
+            idField: "id",
+            loadMsg: "正在加载数据",
+            pagination: true,
+            rownumbers: true,
+            pageSiz: 10,
+            pageList: [10, 20, 30],
+            sortName: "name",
+            sortOrder: "asc",
+            columns: [[
+                { field: 'ck', checkbox: true },
+                { field: 'Id', title: '编号', width: 100, hidden: true },
+                { field: 'Name', title: '登录名', width: 100, sortable: true },//sortable:true点击该列的时候可以改变升降序
+                { field: 'MyName', title: '姓名', width: 100 },
+                 { field: 'Password', title: '密码', width: 100 },
+                { field: 'Sex', title: '性别', width: 100 },
+                { field: 'RoleName', title: '角色名', width: 100 },
+                { field: 'DepartmentName', title: '部门名', width: 100 },
+                { field: 'PhoneNumber', title: '电话', width: 100 },
+                { field: 'City', title: '城市', width: 100 },
+                { field: 'Village', title: '省份', width: 100 },
+                { field: 'State', title: '状态', width: 100 },
+                { field: 'Type', title: '等别', width: 100 }
+
+            ]],
+            toolbar: [{//在dategrid表单的头部添加按钮
+                text: "添加",
+                iconCls: "icon-add",
+                handler: function () {
+                    ShowAddDialog();
+                }
+            }, '-', {//'-'就是在两个按钮的中间加一个竖线分割，看着舒服
+                text: "删除",
+                iconCls: "icon-remove",
+                handler: function () {
+                    ShowDeleteDialog();
+
+                }
+            }, '-', {
+                text: "修改",
+                iconCls: "icon-edit",
+                handler: function () {
+                    ShowUpdateDialog();
+                }
+            }, '-']
+
+        });
+    });
+    //点击添加事件
+    function ShowAddDialog() {
+        // $("#AddDialog").dialog("open").dialog('setTitle', '添加用户信息');
+        window.location.href = "/SysPerson/Create";
+    }
+    //点击删除事件
+    function ShowDeleteDialog() {
+        if (confirm("确定删除？")) {
+            var id = $("#dg").datagrid("getSelections")[0].Id;
+
+            $.post(
+                "/SysPerson/Delete",
+                  { id: id },
+                 function (date) {
+                     if (date == "OK") {
+                         //    $("#UpdateDialog").dialog('close');
+
+                         $("#dg").datagrid('reload');
+                     }
+                     else {
+                         alert("修改失败，请检查");
+                     }
+                 }
+                );
+        }
+
+    }
+    //点击修改事件
+    function ShowUpdateDialog() {
+
+
+        //    $("#UpdateDialog").dialog("open").dialog("setTitle", "修改用户信息");
+
+        //绑定显示修改的详细信息的内容
+        // BingUpdateDialog();
+        window.location.href = "/SysPerson/Edit/" + $("#dg").datagrid("getSelections")[0].Id;;
+    }
+    //绑定修改用户的信息显示在用户的TextBox文本框中
+    function BingUpdateDialog() {
+        //首先获取选中的用户的ID
+        var id = $("#dg").datagrid("getSelections")[0].Id;
+
+        $("#UpdateInfo").form("load", $("#dg").datagrid("getSelections")[0]);
+        //使用异步的getJSON请求绑定前台传递过来的数据
+
+
+    }
+
+    //修改信息
+    function UpdateClickEvent() {
+        $("#btn-update").click(function () {
+
+            //首先判断前台的验证是否通过
+            var valid = $('#UpdateInfo').form('validate');
+            if (valid == false) {
+                return false;
+            }
+
+            //使用异步实现修改用户信息
+
+            $.post(
+                "/SysPerson/Edit",
+                $("#UpdateInfo").form().serialize(),
+
+                function (date) {
+                    if (date == "OK") {
+                        //$("#UpdateInfo").form("reset");
+                        $("#UpdateDialog").dialog('close');
+                        $("#dg").datagrid('reload');
+                    }
+                    else {
+                        alert("修改失败，请检查");
+                    }
+                });
+        });
+
+    }
+
+    //添加信息
+
+    function AddClickEvent() {
+        $("#btn-add").click(function () {
+            //首先判断前台的验证是否通过
+            var valid = $('#AddInfo').form('validate');
+            if (valid == false) {
+                return false;
+            }
+            $.post(
+                      "/SysPerson/Create",
+                         sy.serializeObject($("#AddInfo").form()),
+                      function (date) {
+                          if (date == "OK") {
+                              $("#AddInfo").form("reset");
+                              $("#AddDialog").dialog('close');
+                              $("#dg").datagrid('reload');
+                          }
+                          else {
+                              alert("修改失败，请检查");
+                          }
+                      });
+        });
+    }
+
+    //获取勾选项
+    function getSelectedArr() {
+        var ids = [];
+        var rows = $("#dg").datagrid('getSelections');
+        for (var i = 0; i < rows.length; i++) {
+            ids.push(rows[i].ID);
+
+        }
+        return ids;
+    }
+    //给选中的数组添加间隔号
+    function getSelectedID() {
+        var ids = getSelectedArr();
+        return ids.join(',');
+    }
+</script>
+<div data-options="region:'center',split:false,title:'用户角色'">
+    <table id="dg">
+    </table>
+</div>
+<div id="AddDialog" class="easyui-dialog" style="width: 360px; height: 300px; padding: 10px 20px"
+    closed="true" resizable="true" modal="true" buttons="#dlg-buttons" align="center">
+    <form id="AddInfo" method="post" novalidate="novalidate">
+        <table id="tblAdd">
+            <tr>
+                <td>
+                    <label for="Name">登录名：</label></td>
+                <td>
+                    <input data-options="required:true" data-options="required:true,editable:false" class="easyui-validatebox" type="text" id="Name" name="Name" /></td>
+                <td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="Password">密码：</label></td>
+                <td>
+                    <input data-options="required:true" data-options="required:true,editable:false" class="easyui-validatebox" type="password" id="Password" name="Password" /></td>
+                <td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="MyName">姓名：</label></td>
+                <td>
+                    <input data-options="required:true" data-options="required:true,editable:false" class="easyui-validatebox" type="text" id="MyName" name="MyName" /></td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="PhoneNumber">电话:</label></td>
+                <td>
+                    <input class="easyui-validatebox" type="text" id="PhoneNumber" name="PhoneNumber" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="Sex">性别:</label></td>
+                <td>
+                    <select class="easyui-combobox" name="Sex" id="Sex">
+                        <option value="男">男</option>
+                        <option value="女">女</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="RoleName">角色名:</label></td>
+                <td>
+                    <select class="easyui-combobox" name="SysRoleId" id="SysRoleId" data-options="required:true,editable:false">
+                    </select></td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="SysDepartmentId">部门:</label></td>
+                <td>
+                    <select class="easyui-combobox" name="SysDepartmentId" id="SysDepartmentId" data-options="required:true,editable:false">
+                    </select></td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align: center; padding-top: 10px">
+                    <a href="javascript:void(0)" class="easyui-linkbutton" id="btn-add" iconcls="icon-ok">确定</a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-cancel" onclick="javascript:$('#AddUserDialog').dialog('close')">关闭</a>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+<div id="UpdateDialog" class="easyui-dialog" style="width: 360px; height: 300px; padding: 10px 20px"
+    closed="true" resizable="true" modal="true" buttons="#dlg-buttons" align="center">
+    <form id="UpdateInfo" method="post" novalidate="novalidate">
+        <table id="tblUpdate">
+            <tr>
+                <td>
+                    <label for="Name">登录名：</label></td>
+                <input id="Id" name="Id" type="hidden" />
+                <td>
+                    <input data-options="required:true" class="easyui-validatebox" type="text" id="Name1" name="Name" /></td>
+                <td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="Password">密码：</label></td>
+                <td>
+                    <input data-options="required:true" class="easyui-validatebox" type="password" id="Password1" name="Password" /></td>
+                <td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="MyName">姓名：</label></td>
+                <td>
+                    <input data-options="required:true" class="easyui-validatebox" type="text" id="MyName1" name="MyName" /></td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="PhoneNumber">电话:</label></td>
+                <td>
+                    <input class="easyui-validatebox" type="text" id="PhoneNumber1" name="PhoneNumber" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="Sex">性别:</label></td>
+                <td>
+                    <select class="easyui-combobox" name="Sex" id="Sex1">
+                        <option value="男">男</option>
+                        <option value="女">女</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="RoleName">角色名:</label></td>
+                <td>
+                    <select class="easyui-combobox" name="SysRoleId" id="SysRoleId1">
+                    </select></td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="SysDepartmentId">部门:</label></td>
+                <td>
+                    <select class="easyui-combobox" name="SysDepartmentId" id="SysDepartmentId1">
+                    </select></td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align: center; padding-top: 10px">
+                    <a href="javascript:void(0)" class="easyui-linkbutton" id="btn-update" iconcls="icon-ok">确定</a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-cancel" onclick="javascript:$('#AddUserDialog').dialog('close')">关闭</a>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>

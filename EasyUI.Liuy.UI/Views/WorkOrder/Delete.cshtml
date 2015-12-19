@@ -1,0 +1,138 @@
+﻿@model EasyUI.Liuy.Domain.Models.WorkOrder
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>WorkOrder</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Type)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Type)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Product.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Product.Name)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Quantity)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Quantity)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Contact)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Contact)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Phone)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Phone)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Sex)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Sex)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ProblemDescription)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ProblemDescription)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ProcessingMode)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ProcessingMode)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Suggestion)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Suggestion)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.SI)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.SI)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Attachment)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Attachment)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.SIM)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.SIM)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Terminal)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Terminal)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Company)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Company)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.State)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.State)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.CreateTime)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CreateTime)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ProcessingTime)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ProcessingTime)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

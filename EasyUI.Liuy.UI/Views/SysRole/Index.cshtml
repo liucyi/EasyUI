@@ -1,0 +1,97 @@
+﻿@model IEnumerable<EasyUI.Liuy.Domain.Models.SysRole>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<script>
+    function ShowAddDialog() {
+        window.location.href = "/SysRole/Create";
+
+    }
+
+
+
+    function ShowDeleteDialog() {
+
+    }
+
+
+
+    function ShowUpdateDialog() {
+     
+          window.location.href = "/SysRole/Edit/" + $("#dg").datagrid("getSelections")[0].Id;
+
+    }
+
+
+</script>
+<div data-options="region:'north',title:'用户角色'" style="height: 100px;" border="false" fit="true">
+    <table id="dg" class="easyui-datagrid" style="width: auto; height: auto" data-options="singleSelect:true,collapsible:true,pagination: true,
+            rownumbers: true,
+            pageSiz: 10,
+            pageList: [10, 20, 30],     toolbar: [{ 
+                text: '添加',
+                iconCls: 'icon-add',
+                handler: function () {
+                    ShowAddDialog();
+                }
+            }, '-', { 
+                text: '删除',
+                iconCls: 'icon-remove',
+                handler: function () {
+                    ShowDeleteDialog();
+
+                }
+            }, '-', {
+                text: '修改',
+                iconCls: 'icon-edit',
+                handler: function () {
+                    ShowUpdateDialog();
+                }
+            }, '-']">
+        <thead>
+            <tr>
+                 <th data-options="field:'Id',width:80">Id
+                </th>
+                <th data-options="field:'姓名',width:80">名称
+                </th>
+                <th data-options="field:'描述',width:80">描述
+                </th>
+                <th data-options="field:'类型',width:80">类型
+                </th>
+                <th data-options="field:'状态',width:80">状态
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                  <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.State)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

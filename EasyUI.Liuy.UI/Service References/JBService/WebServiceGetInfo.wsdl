@@ -1,0 +1,470 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="GetOne">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Pwd" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="id" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOneResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetOneResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="updateOne">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Pwd" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="id" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Content" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="updateOneResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="updateOneResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="updateUnOrsetupdefences">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Pwd" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="id" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Status" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="updateUnOrsetupdefencesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="updateUnOrsetupdefencesResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSelectSend">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Pwd" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="id" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSelectSendResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSelectSendResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAlarmStatistics">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Pwd" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="id" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAlarmStatisticsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAlarmStatisticsResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAlarmStatisticsCount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Pwd" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="id" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="StartDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="EndDate" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAlarmStatisticsCountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAlarmStatisticsCountResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetInformationAll">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Pwd" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="id" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetInformationAllResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetInformationAllResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetHistory">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Pwd" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="id" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="StartDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="EndDate" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetHistoryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetHistoryResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSelectSIM">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Pwd" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sim" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSelectSIMResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSelectSIMResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateSIM">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Pwd" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="id" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sim" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateSIMResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdateSIMResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetOneSoapIn">
+    <wsdl:part name="parameters" element="tns:GetOne" />
+  </wsdl:message>
+  <wsdl:message name="GetOneSoapOut">
+    <wsdl:part name="parameters" element="tns:GetOneResponse" />
+  </wsdl:message>
+  <wsdl:message name="updateOneSoapIn">
+    <wsdl:part name="parameters" element="tns:updateOne" />
+  </wsdl:message>
+  <wsdl:message name="updateOneSoapOut">
+    <wsdl:part name="parameters" element="tns:updateOneResponse" />
+  </wsdl:message>
+  <wsdl:message name="updateUnOrsetupdefencesSoapIn">
+    <wsdl:part name="parameters" element="tns:updateUnOrsetupdefences" />
+  </wsdl:message>
+  <wsdl:message name="updateUnOrsetupdefencesSoapOut">
+    <wsdl:part name="parameters" element="tns:updateUnOrsetupdefencesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSelectSendSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSelectSend" />
+  </wsdl:message>
+  <wsdl:message name="GetSelectSendSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSelectSendResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAlarmStatisticsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAlarmStatistics" />
+  </wsdl:message>
+  <wsdl:message name="GetAlarmStatisticsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAlarmStatisticsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAlarmStatisticsCountSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAlarmStatisticsCount" />
+  </wsdl:message>
+  <wsdl:message name="GetAlarmStatisticsCountSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAlarmStatisticsCountResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetInformationAllSoapIn">
+    <wsdl:part name="parameters" element="tns:GetInformationAll" />
+  </wsdl:message>
+  <wsdl:message name="GetInformationAllSoapOut">
+    <wsdl:part name="parameters" element="tns:GetInformationAllResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetHistorySoapIn">
+    <wsdl:part name="parameters" element="tns:GetHistory" />
+  </wsdl:message>
+  <wsdl:message name="GetHistorySoapOut">
+    <wsdl:part name="parameters" element="tns:GetHistoryResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSelectSIMSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSelectSIM" />
+  </wsdl:message>
+  <wsdl:message name="GetSelectSIMSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSelectSIMResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateSIMSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateSIM" />
+  </wsdl:message>
+  <wsdl:message name="UpdateSIMSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateSIMResponse" />
+  </wsdl:message>
+  <wsdl:portType name="WebServiceGetInfoSoap">
+    <wsdl:operation name="GetOne">
+      <wsdl:input message="tns:GetOneSoapIn" />
+      <wsdl:output message="tns:GetOneSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="updateOne">
+      <wsdl:input message="tns:updateOneSoapIn" />
+      <wsdl:output message="tns:updateOneSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="updateUnOrsetupdefences">
+      <wsdl:input message="tns:updateUnOrsetupdefencesSoapIn" />
+      <wsdl:output message="tns:updateUnOrsetupdefencesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSelectSend">
+      <wsdl:input message="tns:GetSelectSendSoapIn" />
+      <wsdl:output message="tns:GetSelectSendSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAlarmStatistics">
+      <wsdl:input message="tns:GetAlarmStatisticsSoapIn" />
+      <wsdl:output message="tns:GetAlarmStatisticsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAlarmStatisticsCount">
+      <wsdl:input message="tns:GetAlarmStatisticsCountSoapIn" />
+      <wsdl:output message="tns:GetAlarmStatisticsCountSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetInformationAll">
+      <wsdl:input message="tns:GetInformationAllSoapIn" />
+      <wsdl:output message="tns:GetInformationAllSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetHistory">
+      <wsdl:input message="tns:GetHistorySoapIn" />
+      <wsdl:output message="tns:GetHistorySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSelectSIM">
+      <wsdl:input message="tns:GetSelectSIMSoapIn" />
+      <wsdl:output message="tns:GetSelectSIMSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateSIM">
+      <wsdl:input message="tns:UpdateSIMSoapIn" />
+      <wsdl:output message="tns:UpdateSIMSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WebServiceGetInfoSoap" type="tns:WebServiceGetInfoSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetOne">
+      <soap:operation soapAction="http://tempuri.org/GetOne" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateOne">
+      <soap:operation soapAction="http://tempuri.org/updateOne" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateUnOrsetupdefences">
+      <soap:operation soapAction="http://tempuri.org/updateUnOrsetupdefences" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSelectSend">
+      <soap:operation soapAction="http://tempuri.org/GetSelectSend" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAlarmStatistics">
+      <soap:operation soapAction="http://tempuri.org/GetAlarmStatistics" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAlarmStatisticsCount">
+      <soap:operation soapAction="http://tempuri.org/GetAlarmStatisticsCount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInformationAll">
+      <soap:operation soapAction="http://tempuri.org/GetInformationAll" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHistory">
+      <soap:operation soapAction="http://tempuri.org/GetHistory" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSelectSIM">
+      <soap:operation soapAction="http://tempuri.org/GetSelectSIM" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateSIM">
+      <soap:operation soapAction="http://tempuri.org/UpdateSIM" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WebServiceGetInfoSoap12" type="tns:WebServiceGetInfoSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetOne">
+      <soap12:operation soapAction="http://tempuri.org/GetOne" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateOne">
+      <soap12:operation soapAction="http://tempuri.org/updateOne" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateUnOrsetupdefences">
+      <soap12:operation soapAction="http://tempuri.org/updateUnOrsetupdefences" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSelectSend">
+      <soap12:operation soapAction="http://tempuri.org/GetSelectSend" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAlarmStatistics">
+      <soap12:operation soapAction="http://tempuri.org/GetAlarmStatistics" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAlarmStatisticsCount">
+      <soap12:operation soapAction="http://tempuri.org/GetAlarmStatisticsCount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInformationAll">
+      <soap12:operation soapAction="http://tempuri.org/GetInformationAll" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHistory">
+      <soap12:operation soapAction="http://tempuri.org/GetHistory" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSelectSIM">
+      <soap12:operation soapAction="http://tempuri.org/GetSelectSIM" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateSIM">
+      <soap12:operation soapAction="http://tempuri.org/UpdateSIM" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WebServiceGetInfo">
+    <wsdl:port name="WebServiceGetInfoSoap" binding="tns:WebServiceGetInfoSoap">
+      <soap:address location="http://116.231.117.68:6600/WebServiceGetInfo.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WebServiceGetInfoSoap12" binding="tns:WebServiceGetInfoSoap12">
+      <soap12:address location="http://116.231.117.68:6600/WebServiceGetInfo.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,61 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+<script>
+    $(function () {
+        $("#dg").datagrid({
+            url: "../WorkOrder/PendingList",
+            //title: "数据",
+            queryParams: {
+                type: '@ViewBag.type'
+            },
+            iconCls: "icon-add",
+            singleSelect: false,
+            fitColumns: true,
+            idField: "Id",
+            loadMsg: "正在加载数据",
+            pagination: true,
+            rownumbers: true,
+            pageSiz: 10,
+            pageList: [10, 20, 30],
+            sortName: "Name",
+            sortOrder: "asc",
+            columns: [[
+                { field: 'ck', checkbox: true },
+                {
+                    field: 'Id', title: '编号', width: 100,
+                    formatter: function (val, rec) {
+                        return "<a href=/WorkOrder/Details/" + val + ">" + val + "</a>";
+                    }
+                },
+                { field: 'Type', title: '工单类型', width: 100, sortable: true },//sortable:true点击该列的时候可以改变升降序
+                { field: 'Name', title: '产品名称', width: 100 },
+                { field: 'Terminal', title: '终端号', width: 100 },
+                  { field: 'Quantity', title: '数量', width: 100 },
+                { field: 'Company', title: '客户名称', width: 100 },
+                  { field: 'Contact', title: '联系人', width: 100 },
+                { field: 'State', title: '状态', width: 100 },
+                { field: 'Sex', title: '性别', width: 100 },
+                  { field: 'Phone', title: '电话', width: 100 },
+                { field: 'ProblemDescription', title: '问题描述', width: 100 },
+                  {
+                      field: 'Attachment', title: '上传附件', width: 100, formatter: function (val, rec) {
+                          return "<a href=/Uploads/" + val + ">" + val + "</a>";
+                      }
+                  },
+                { field: 'ProcessingMode', title: '处理模式', width: 100 },
+                { field: 'SI', title: 'SI', width: 100 },
+                { field: 'Suggestion', title: '处理意见', width: 100 },
+                { field: 'Service', title: '服务', width: 100 }]],
+
+
+        });
+
+    });
+
+</script>
+<div data-options="region:'center',split:false,title:'工单'">
+    <table id="dg">
+    </table>
+</div>
+
